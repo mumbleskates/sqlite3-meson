@@ -15,7 +15,14 @@ cc = meson.get_compiler('c')
 dl_dep = cc.find_library('dl', required : false)
 m_dep = cc.find_library('m', required: false)
 
-sqlite_args = []
+sqlite_args = [
+  '-DSQLITE_DQS=0',
+  '-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1',  # default to "normal"
+  '-DSQLITE_ENABLE_FTS5',
+  '-DSQLITE_ENABLE_JSON1',
+  '-DSQLITE_ENABLE_RTREE',
+  '-DSQLITE_ENABLE_UNLOCK_NOTIFY',
+]
 if cc.get_id() == 'msvc' and get_option('default_library') != 'static'
   sqlite_args += ['-DSQLITE_API=__declspec(dllexport)']
 endif
