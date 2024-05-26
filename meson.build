@@ -7,7 +7,7 @@ project(
   ],
 )
 
-sqlite3_folder = 'sqlite-amalgamation-3460000/'
+sqlite3_folder = 'sqlite-amalgamation-3460000'
 
 thread_dep = dependency('threads')
 
@@ -32,7 +32,7 @@ endif
 
 sqlite3_lib = library(
   'sqlite3',
-  sqlite3_folder + 'sqlite3.c',
+  sqlite3_folder + '/sqlite3.c',
   c_args : sqlite_args,
   dependencies : [thread_dep, dl_dep, m_dep],
 )
@@ -51,7 +51,7 @@ endif
 
 sqlite3_shell = executable(
   'sqlite3_shell',
-  sqlite3_folder + 'shell.c',
+  sqlite3_folder + '/shell.c',
   c_args : shell_args,
   dependencies : [sqlite3_dep, ncurses_dep, readline_dep, zlib_dep],
 )
