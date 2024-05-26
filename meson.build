@@ -13,11 +13,14 @@ thread_dep = dependency('threads')
 
 cc = meson.get_compiler('c')
 dl_dep = cc.find_library('dl', required : false)
-m_dep = cc.find_library('m', required: false)
+m_dep = cc.find_library('m', required : false)
+ncurses_dep = cc.find_library('ncurses', required : false)
+readline_dep = cc.find_library('readline', required : false)
+zlib_dep = cc.find_library('z', required : false)
 
 sqlite_args = [
   '-DSQLITE_DQS=0',
-  '-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1',  # default to "normal"
+  '-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1', # default to "normal"
   '-DSQLITE_ENABLE_FTS5',
   '-DSQLITE_ENABLE_JSON1',
   '-DSQLITE_ENABLE_RTREE',
@@ -38,8 +41,17 @@ sqlite3_dep = declare_dependency(
   include_directories : sqlite3_folder,
 )
 
+shell_args = []
+if zlib_dep.found()
+  shell_args += '-DSQLITE_HAVE_ZLIB'
+endif
+if readline_dep.found()
+  shell_args += '-DHAVE_READLINE'
+endif
+
 sqlite3_shell = executable(
   'sqlite3_shell',
   sqlite3_folder + 'shell.c',
-  dependencies : [sqlite3_dep],
+  c_args : shell_args,
+  dependencies : [sqlite3_dep, ncurses_dep, readline_dep, zlib_dep],
 )
