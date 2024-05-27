@@ -30,7 +30,7 @@ if cc.get_id() == 'msvc' and get_option('default_library') != 'static'
   sqlite_args += ['-DSQLITE_API=__declspec(dllexport)']
 endif
 
-sqlite3_lib = library(
+sqlite3_lib = both_libraries(
   'sqlite3',
   sqlite3_folder + '/sqlite3.c',
   c_args : sqlite_args,
