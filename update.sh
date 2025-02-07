@@ -10,7 +10,7 @@ fi
 set -euxo pipefail
 
 TEMP=$(mktemp)
-curl "https://sqlite.org/2024/sqlite-amalgamation-${1}.zip" > $TEMP
+curl "https://sqlite.org/$(date +%Y)/sqlite-amalgamation-${1}.zip" > $TEMP
 rm -r sqlite-amalgamation-*
 unzip $TEMP -d .
 sed -i "s/^sqlite3_folder = .*/sqlite3_folder = '$(ls -d sqlite-amalgamation-*)'/" meson.build
