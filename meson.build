@@ -53,5 +53,5 @@ sqlite3_shell = executable(
   'sqlite3_shell',
   sqlite3_folder + '/shell.c',
   c_args : shell_args,
-  dependencies : [sqlite3_dep, ncurses_dep, readline_dep, zlib_dep],
+  dependencies : [sqlite3_dep, m_dep, ncurses_dep, readline_dep, zlib_dep],
 )
