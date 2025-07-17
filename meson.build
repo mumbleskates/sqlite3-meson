@@ -7,7 +7,7 @@ project(
   ],
 )
 
-sqlite3_folder = 'sqlite-amalgamation-3500200'
+sqlite3_folder = 'sqlite-amalgamation-3500300'
 
 thread_dep = dependency('threads')
 
